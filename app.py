@@ -1,5 +1,6 @@
 # Dependencies
 # ----------------------------------
+import os
 from flask import Flask, render_template, redirect, jsonify, request
 from flask import send_from_directory
 import pandas as pd
@@ -9,19 +10,27 @@ from sqlalchemy import MetaData, update, Table
 from sqlalchemy.orm import Session
 from datetime import datetime
 from modelPredict import predictModel
+from sqlalchemy import Column, Integer, String, Float, SmallInteger, Date
 import tweet
-import database
-
 
 # initialize flask
 app = Flask(__name__)
 
 # Create database connection String
-rds_connection_string = "postgres:postgres@localhost:5432/sentiment_db"
-engine = create_engine(f'postgresql://{rds_connection_string}')
+from flask_sqlalchemy import SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-metadata = MetaData(engine)
-tweet_data = Table('tweet_data', metadata, autoload=True, autoload_with=engine)
+db = SQLAlchemy(app)
+
+tweet_data = Table(
+        'tweet_data', 
+        Column('id', String, primary_key = True), 
+        Column('tweet', String), 
+        Column('sentiments', SmallInteger),
+        Column('predicted_sentiments', Float),
+        Column('time_data_inserted', Date) 
+    )
 
 @app.route("/")
 def home():
@@ -37,11 +46,9 @@ def statistics():
 
 @app.route("/load_tweet")
 def load_tweet():
-	conn = engine.connect()
-	session = Session(bind=engine)
-	available_tweets = session.query(tweet_data).filter(tweet_data.c.sentiments == 9).count()
-	session.close()
-	print(available_tweets)
+	available_tweets = db.session.query(tweet_data).filter(tweet_data.c.sentiments == 9).count()
+	db.session.close()
+	
 	if available_tweets == 0:
 		tweet.api_call()
 
@@ -63,7 +70,8 @@ def load_tweet():
 		where(tweet_data.c.id == tweet_dict['id']).
 		values(predicted_sentiments=tweet_dict['predicted_sentiments'])
 	)
-	conn.execute(update_db)
+	db.session.execute(update_db)
+	db.session.commit()
 
 	return jsonify(tweet_dict)
 
@@ -81,9 +89,6 @@ def positive_update():
 		}
 	except:
 		return {}
-	
-	# Create connection to SQL database
-	conn = engine.connect()
 
 	# Create object update
 	tweet_update = (
@@ -91,7 +96,9 @@ def positive_update():
 		where(tweet_data.c.id == tweet_dict['id']).
 		values(sentiments=tweet_dict['sentiments'], time_data_inserted=tweet_dict['time_data_inserted'])
 	)
-	conn.execute(tweet_update)
+	
+	db.session.execute(tweet_update)
+	db.session.commit()	
 	return {}
 
 @app.route("/negative_update", methods = ['POST'])
@@ -117,13 +124,14 @@ def negative_update():
 		where(tweet_data.c.id == tweet_dict['id']).
 		values(sentiments=tweet_dict['sentiments'], time_data_inserted=tweet_dict['time_data_inserted'])
 	)
-	conn.execute(tweet_update)
+	db.session.execute(tweet_update)
+	db.session.commit()	
 	return {}
 
 @app.route("/data")
 def datacalled():
-	session = Session(bind=engine)
-	vals = session.query(tweet_data).filter(tweet_data.c.sentiments != 9).all()
+	vals = db.session.query(tweet_data).filter(tweet_data.c.sentiments != 9).all()
+	db.session.close()
 	data_list = []
 	holder = len(vals)
 	for i in range(holder):
