@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Twitter Sentiment</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Bootstrap icon font CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Sentiment Analysis</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="/">The Process</a>
+              <a class="nav-link" href="/voting">Sentiment Voting</a>
+              <a class="nav-link" href="/stats">Statistics</a>
+            </div>
+          </div>
+        </div>
+    </nav>
+
+    <div class="container headerBox">
+      <div class="px-4 py-5 my-5 text-center">
+        <img class="d-block mx-auto mb-4" src="../static/images/cover_photo.png" alt="Cover Photo" width="225" height="100">
+        <h1 class="display-5 fw-bold">Twitter Sentiment Analysis Model</h1>
+        <div class="col-lg-6 mx-auto">
+            Created by: Danielle Martin, Jordan Roessle, Robert Gramlich, and Sunwoo Kim</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container col-xxl-8 px-4 py-5 processBox">
+      <h1 class="display-5 fw-bold" style="text-align: center;">The Process</h1>
+      <p class="lead mb-4 text-center">This project aims to create a neural network that can predict the sentiment of tweets from Twitter.
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <a href="https://github.com/sunwoo-kim20/sentiment-analysis-final-project/blob/main/isolated_model.py" target="_blank">
+          <img src="../static/images/the_model.PNG" class="d-block mx-lg-auto img-fluid pointer" alt="The Model" width="700" height="500" loading="lazy">
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-6 fw-bold lh-1 mb-3">The Model</h1>
+          <p class="lead">The model is trained and tested on an IMDB movie reviews dataset with prescribed positive or negative rankings. <br>
+            Click on the code snippet to see the full model in GitHub.</p>
+        </div>
+      </div>
+      <div class="row flex-lg-row align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <a href="https://github.com/sunwoo-kim20/sentiment-analysis-final-project/blob/main/database.py" target="_blank">
+          <img src="../static/images/sql_creation.PNG" class="d-block mx-lg-auto img-fluid pointer" alt="SQL Table" width="700" height="500" loading="lazy">
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-6 fw-bold lh-1 mb-3">Creating SQL Tables</h1>
+          <p class="lead">A SQL database and tables were then created to house our future Twitter data. This files runs automatically when the Flask app is run. <br> 
+            Click on the code snippet to see the full database tables creation in GitHub.</p>
+        </div>
+      </div>
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <a href="https://github.com/sunwoo-kim20/sentiment-analysis-final-project/blob/main/tweet.py" target="_blank">
+          <img src="../static/images/api_call.PNG" class="d-block mx-lg-auto img-fluid pointer" alt="The API Call" width="700" height="500" loading="lazy">
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-6 fw-bold lh-1 mb-3">The API Call</h1>
+          <p class="lead">Once the model was trained on the IMDB data, we were ready to start using it on other types of data. 
+            We used Twitter's API to call 10 tweets at a time. These tweets are then inserted into our SQL database for future use. <br> 
+            Click on the code snippet to see the full API call and database load in GitHub.</p>
+        </div>
+      </div>
+      <div class="row flex-lg-row align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <a href="https://github.com/sunwoo-kim20/sentiment-analysis-final-project/blob/main/app.py" target="_blank">
+          <img src="../static/images/flask_app.PNG" class="d-block mx-lg-auto img-fluid pointer" alt="The Flask App" width="700" height="500" loading="lazy">
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-6 fw-bold lh-1 mb-3">Serving it Up</h1>
+          <p class="lead">The model and api call come together in a Flask app. <br> 
+            Click on the code snippet to see the full Flask App in GitHub.</p>
+        </div>
+      </div>
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <a href="https://github.com/sunwoo-kim20/sentiment-analysis-final-project/blob/main/modelPredict.py" target="_blank">
+          <img src="../static/images/javascript.PNG" class="d-block mx-lg-auto img-fluid pointer" alt="JavaScript" width="700" height="500" loading="lazy">
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-6 fw-bold lh-1 mb-3">Getting Interactive</h1>
+          <p class="lead">A tweet is loaded from the database to our Sentiment Voting page. From here, users have the ability to vote on the tweet as well.
+            These votes are stored in the database for future model retraining and analysis.<br>
+            Click on the code snippet to see the full JavaScript in GitHub.</p>
+        </div>
+      </div>
+      <div class="row flex-lg-row align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <a href="https://github.com/sunwoo-kim20/sentiment-analysis-final-project/blob/main/modelPredict.py" target="_blank">
+          <img src="../static/images/tweet_model.PNG" class="d-block mx-lg-auto img-fluid pointer" alt="The Model" width="700" height="500" loading="lazy">
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-6 fw-bold lh-1 mb-3">Feeding The Model</h1>
+          <p class="lead">When a tweet is loaded to the voting page, it is cleaned and fed to the model to predict a sentiment level between 0-1. Our model's prediction can be seen on the voting page. <br>
+            Click on the code snippet to see the full predict model in GitHub.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container col-xxl-8 px-4 py-5 howToBox">
+      <h1 class="display-5 fw-bold" style="text-align: center;">We Need You!</h1>
+      <div class="row flex-lg-row align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <img src="../static/images/voting_page.png" class="d-block mx-lg-auto img-fluid" alt="Voting Page" width="700" height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+          
+          <p class="lead">Want to be part of the action? We need your help to continue training the model. It's simple:</p>
+          <p class="lead"><b>Step 1:</b> Head on over to our Sentiment Voting page <br>
+            <b>Step 2:</b> Read the tweet displayed at the top of the page <br>
+            <b>Step 3:</b> Click the frown face for negative or the smile face for positive <br>
+            <b>Step 4:</b> Have fun! Vote as many times as you would like. </p>
+          <p class="lead"> Having a hard time deciding? That's okay! These close call tweets can go either way. Just vote how you feel.<br>
+            If it is truly a neutral post, or does not contain enough actual text to illicit a sentiment, feel free to skip to the next tweet.
+          </p>
+        </div>
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+        <a href="/voting">
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4" >Start Voting <i class="bi bi-arrow-right-circle-fill"></i></button>
+        </a>
+      </div>
+    </div>
+
+    <!-- D3 JavaScript -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- Twitter widgets -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
