@@ -7,7 +7,6 @@ from sqlalchemy.orm import Session
 
 from app import db
 
-
 tweet_data = Table(
         'tweet_data', 
         Column('id', String, primary_key = True), 

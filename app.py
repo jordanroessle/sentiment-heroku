@@ -52,7 +52,8 @@ def load_tweet():
 	if available_tweets == 0:
 		tweet.api_call()
 
-	df = pd.read_sql_query('select * from tweet_data WHERE tweet_data.sentiments = 9', con=conn)
+	df = db.session.query('select * from tweet_data WHERE tweet_data.sentiments = 9')
+	db.session.close()
 	df = df.iloc[0]
 	
 	tweet_dict = {
@@ -114,9 +115,6 @@ def negative_update():
 		}
 	except:
 		return {}
-
-	# Create connection to SQL database
-	conn = engine.connect()
 	
 	# Create object update
 	tweet_update = (
