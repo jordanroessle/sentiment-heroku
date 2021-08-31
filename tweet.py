@@ -5,7 +5,7 @@ from sqlalchemy import Table, Column, String, MetaData, Date, create_engine, ins
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
-from app import db
+from .app import db
 
 tweet_data = Table(
         'tweet_data', 

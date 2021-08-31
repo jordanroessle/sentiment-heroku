@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 from modelPredict import predictModel
 from sqlalchemy import Column, Integer, String, Float, SmallInteger, Date
-import tweet
+from tweet import api_call
 
 # initialize flask
 app = Flask(__name__)
@@ -50,7 +50,7 @@ def load_tweet():
 	db.session.close()
 	
 	if available_tweets == 0:
-		tweet.api_call()
+		api_call()
 
 	df = db.session.query('select * from tweet_data WHERE tweet_data.sentiments = 9')
 	db.session.close()
